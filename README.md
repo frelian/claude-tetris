@@ -45,7 +45,7 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 
 ---
 
-## Qué hace el proyecto
+## Código desplegado
 
 <a href="https://frelian.github.io/claude-tetris/" target="_blank">Demo</a>
 
