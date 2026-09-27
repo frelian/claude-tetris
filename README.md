@@ -45,6 +45,12 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 
 ---
 
+## Qué hace el proyecto
+
+Demo: https://frelian.github.io/claude-tetris/
+
+---
+
 ## Cómo ejecutar el juego
 
 No hay nada que instalar ni compilar. Tienes dos opciones:
