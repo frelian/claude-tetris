@@ -42,6 +42,7 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 - **Sistema de puntuación** clásico de Tetris (100 / 300 / 500 / 800 multiplicado por nivel).
 - **Niveles** que aumentan cada 10 líneas y aceleran la caída.
 - **Pausa** y **Game Over** con opción de reinicio.
+- **Tema claro/oscuro**: switch en la esquina superior derecha para alternar entre modo oscuro (por defecto) y modo claro; la preferencia se guarda en `localStorage`.
 
 ---
 
@@ -108,7 +109,7 @@ Define la estructura visual:
 
 ### 2. `style.css`
 
-Aporta el aspecto visual con estética _dark / retro arcade_: fondo oscuro, tipografía monoespaciada para los marcadores y _backdrop blur_ en los overlays.
+Aporta el aspecto visual con estética _dark / retro arcade_: fondo oscuro, tipografía monoespaciada para los marcadores y _backdrop blur_ en los overlays. Los colores se definen como variables CSS en `:root` (tema oscuro por defecto) que se sobrescriben bajo `body.light` cuando se activa el switch de tema.
 
 ### 3. `game.js`
 
