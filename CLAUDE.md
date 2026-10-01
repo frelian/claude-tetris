@@ -26,9 +26,9 @@ Key points in `game.js`:
 - **Piece lifecycle**: `spawn()` promotes `next` → `current` and triggers game over if the new piece collides at spawn. `lockPiece()` = `merge()` → `clearLines()` → `spawn()`. Gravity (`loop`), `softDrop()` and `hardDrop()` all end in `lockPiece()`.
 - **Collision** (`collide(shape, x, y)`) is the single source of truth for movement, rotation (with kick offsets `[0,-1,1,-2,2]` in `tryRotate`), ghost projection (`ghostY`), and spawn-death.
 - **Game loop**: `requestAnimationFrame`-based; accumulates `dt` into `dropAccum` and drops one row when it exceeds `dropInterval`. Full redraw every frame (`draw()`: grid → locked board → ghost at alpha 0.2 → current piece). Pause cancels the RAF; unpause resets `lastTime` and calls `loop()` directly.
-- **Scoring/levels**: `LINE_SCORES[cleared] * level`; soft drop +1/row, hard drop +2/row. Level = `floor(lines/10)+1`; `dropInterval = max(100, 1000 - (level-1)*90)` ms. Computed in `clearLines()`.
+- **Scoring/levels**: `LINE_SCORES[cleared] * level`; soft drop +1/row, hard drop +2/row. Level = `startLevel + floor(lines/10)` (`startLevel` set by pause-menu select, applied in `init()`); `dropInterval = intervalFor(level)` = `max(100, 1000 - (level-1)*90)` ms. Computed in `clearLines()` and `init()`.
 - **HUD** updates only via `updateHUD()` (DOM text). The next-piece preview (`drawNext`) is redrawn only on `spawn()`.
-- **Overlay** (`#overlay`) is shared by PAUSE and GAME OVER states; the title/score text is set before `hidden` is removed.
+- **Overlay** (`#overlay`) is shared by PAUSE and GAME OVER states; the title/score text is set before `hidden` is removed. PAUSE shows `#pause-menu` (resume, restart, controls, start-level select); GAME OVER shows only `#restart-btn`. `P`/`Escape` toggle pause; game keys ignored while `paused || gameOver`.
 
 ## Coupled values
 
