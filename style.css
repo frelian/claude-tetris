@@ -107,6 +107,32 @@ body {
   cursor: pointer;
 }
 
+.skin-picker {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.skin-picker select {
+  background: var(--toggle-bg);
+  color: var(--text);
+  border: 1px solid var(--toggle-border);
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 11px;
+}
+
+/* Neon: fondo negro siempre, sin importar claro/oscuro */
+body[data-skin="neon"] {
+  --board-bg: #000000;
+  --grid-line: #14142a;
+  --border: #1d1d3a;
+}
+
 .theme-toggle input {
   position: absolute;
   opacity: 0;
