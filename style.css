@@ -23,6 +23,8 @@
   --toggle-bg: #22223a;
   --toggle-border: #3a3a5a;
   --toggle-knob: #7aa2f7;
+  --record-hl: #ffd54f;
+  --record-hl-bg: rgba(255, 213, 79, 0.15);
 }
 
 body.light {
@@ -50,6 +52,8 @@ body.light {
   --toggle-bg: #e0e0ec;
   --toggle-border: #c4c4d4;
   --toggle-knob: #3b5bdb;
+  --record-hl: #b26a00;
+  --record-hl-bg: rgba(255, 160, 0, 0.18);
 }
 
 *, *::before, *::after {
@@ -274,4 +278,122 @@ kbd {
 
 #restart-btn:hover {
   background: var(--restart-hover);
+}
+
+/* ---- Records ---- */
+.name-form.hidden,
+.records.hidden {
+  display: none;
+}
+
+#record-msg {
+  font-size: 13px;
+  color: var(--record-hl);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.name-row {
+  display: flex;
+  gap: 8px;
+}
+
+#name-input {
+  width: 140px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--toggle-border);
+  background: var(--toggle-bg);
+  color: var(--text);
+  font-size: 14px;
+  user-select: text;
+}
+
+#save-btn,
+#reset-records-btn {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+
+#save-btn {
+  background: var(--restart-bg);
+  color: var(--restart-text);
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+#save-btn:hover {
+  background: var(--restart-hover);
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  min-width: 220px;
+}
+
+.records ol {
+  list-style: none;
+  width: 100%;
+  counter-reset: rank;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.records li {
+  counter-increment: rank;
+  display: flex;
+  gap: 8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.records li::before {
+  content: counter(rank) '.';
+  color: var(--label);
+  width: 18px;
+}
+
+.records li .rec-name {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.records li.empty {
+  color: var(--label);
+}
+
+.records li.highlight {
+  background: var(--record-hl-bg);
+  color: var(--record-hl);
+  font-weight: 700;
+}
+
+.records-stats {
+  font-size: 12px;
+  color: var(--control-text);
+}
+
+#reset-records-btn {
+  background: transparent;
+  border: 1px solid var(--toggle-border);
+  color: var(--control-text);
+  padding: 5px 12px;
+  font-size: 11px;
+}
+
+#reset-records-btn:hover {
+  color: var(--overlay-title);
+  border-color: var(--overlay-title);
 }

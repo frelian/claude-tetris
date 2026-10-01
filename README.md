@@ -96,6 +96,17 @@ Después abre `http://localhost:8000` en el navegador.
 
 ---
 
+## Records
+
+Se guardan en `localStorage` (clave `tetris-records`):
+
+- Top 5 puntuaciones con nombre (se pide al hacer game over si entras al top).
+- Mejor combo (líneas limpiadas en piezas consecutivas) y máximo de líneas en una partida.
+- Visibles en la pantalla de inicio y en el overlay de game over; la entrada nueva se resalta.
+- Botón **Resetear records** para borrarlos.
+
+---
+
 ## Cómo funciona
 
 El juego se compone de tres archivos que cooperan:
@@ -106,7 +117,7 @@ Define la estructura visual:
 
 - Un `<canvas id="board">` de **300 × 600** píxeles donde se renderiza el tablero.
 - Un panel lateral con `SCORE`, `LINES`, `LEVEL`, vista de la siguiente pieza y la lista de controles.
-- Un overlay para los estados **PAUSA** y **GAME OVER**.
+- Un overlay para los estados **INICIO**, **PAUSA** y **GAME OVER** (con tabla de records y formulario de nombre).
 
 ### 2. `style.css`
 
