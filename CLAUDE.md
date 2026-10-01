@@ -22,13 +22,15 @@ Three files: `index.html` (DOM: board canvas, side panel, overlay), `style.css` 
 Key points in `game.js`:
 
 - **Global mutable state**: `board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId` are module-level `let`s. `init()` resets all of them and is also the restart handler.
-- **Cell value = piece type = color index**: `board` is a `ROWS × COLS` matrix of `0` (empty) or `1–8` (7 standard pieces + the "Tuerca" challenge piece, a 3×3 ring with an empty center). `PIECES[i]` shapes store `i` in filled cells, and `COLORS[i]` is its color. Index `0` is `null` in both arrays. Adding a piece means adding to both arrays in the same position; `randomPiece()` derives the piece count from `PIECES.length` (no hardcoded number).
+- **Cell value = piece type = color index**: `board` is a `ROWS × COLS` matrix of `0` (empty) or `1–8` (7 standard pieces + the "Tuerca" challenge piece, a 3×3 ring with an empty center). `PIECES[i]` shapes store `i` in filled cells, and `SKINS[name].colors[i]` is its color (every skin's `colors` array must stay aligned with `PIECES`). Index `0` is `null`. Adding a piece means adding to `PIECES` and every skin's `colors` in the same position; `randomPiece()` derives the piece count from `PIECES.length` (no hardcoded number).
 - **Piece lifecycle**: `spawn()` promotes `next` → `current` and triggers game over if the new piece collides at spawn. `lockPiece()` = `merge()` → `clearLines()` → `spawn()`. Gravity (`loop`), `softDrop()` and `hardDrop()` all end in `lockPiece()`.
 - **Collision** (`collide(shape, x, y)`) is the single source of truth for movement, rotation (with kick offsets `[0,-1,1,-2,2]` in `tryRotate`), ghost projection (`ghostY`), and spawn-death.
 - **Game loop**: `requestAnimationFrame`-based; accumulates `dt` into `dropAccum` and drops one row when it exceeds `dropInterval`. Full redraw every frame (`draw()`: grid → locked board → ghost at alpha 0.2 → current piece). Pause cancels the RAF; unpause resets `lastTime` and calls `loop()` directly.
 - **Scoring/levels**: `LINE_SCORES[cleared] * level`; soft drop +1/row, hard drop +2/row. Level = `floor(lines/10)+1`; `dropInterval = max(100, 1000 - (level-1)*90)` ms. Computed in `clearLines()`.
 - **HUD** updates only via `updateHUD()` (DOM text). The next-piece preview (`drawNext`) is redrawn only on `spawn()`.
 - **Overlay** (`#overlay`) is shared by PAUSE and GAME OVER states; the title/score text is set before `hidden` is removed.
+
+- **Skins**: `SKINS` = `{retro, neon, pastel, pixel}`, each with `colors` + `draw(ctx, px, py, size, color)`. `drawBlock` wraps it in `save/restore` and sets alpha. `applySkin()` sets `body[data-skin]` (CSS overrides, e.g. neon black board), persists to `localStorage('skin')`. Independent of light/dark theme.
 
 ## Coupled values
 
